@@ -4,6 +4,7 @@ from flask_restful import Api
 from flask_jwt import JWT
 
 from resources.usuario import Usuario
+from resources.switches import Switch
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -13,6 +14,7 @@ app.secret_key = "unexpoIoTtesis"
 api = Api(app)
 
 api.add_resource(Usuario, '/registrar')
+api.add_resource(Switch, '/switches')
 
 if __name__ == '__main__':
     from db import _db

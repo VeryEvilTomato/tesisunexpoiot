@@ -1,8 +1,9 @@
 from db import _db
 
+
 class UsuarioModel(_db.Model):
     """Model para los usuarios registrados"""
-    __tablename__ = 'users'
+    __tablename__ = 'usuarios'
     id_usuario = _db.Column(_db.Integer, primary_key=True)
     usuario = _db.Column(_db.String(20), unique=True)
     password = _db.Column(_db.String(30))
