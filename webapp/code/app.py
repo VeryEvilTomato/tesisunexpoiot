@@ -1,7 +1,6 @@
 import os
 from flask import Flask, request
 from flask_restful import Api
-from flask_jwt import JWT
 
 from resources.usuario import Usuario
 from resources.switches import Switch

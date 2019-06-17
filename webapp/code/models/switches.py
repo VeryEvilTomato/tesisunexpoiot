@@ -25,16 +25,16 @@ class SwitchesModel(_db.Model):
         return cls.query.filter_by(id_switch=id_switch).first()
 
     @classmethod
-    def encontrar_por_nombre(cls,nombre):
+    def encontrar_por_nombre_id(cls,nombre,id_usuario):
         """Encontrar switch en la DB por su nombre"""
-        return cls.query.filter_by(nombre=nombre).first()
+        return cls.query.filter_by(nombre=nombre).filter_by(id_usuario=id_usuario).first()
     
-    def guardar_db(self):
+    def guardar_en_db(self):
         """Guardar switch en la base de datos"""
         _db.session.add(self)
         _db.session.commit()
 
-    def borrar_db(self):
+    def borrar_de_db(self):
         """Borrar switch de la base de datos"""
         _db.session.delete(self)
         _db.session.commit()

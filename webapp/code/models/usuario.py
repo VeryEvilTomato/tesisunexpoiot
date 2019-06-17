@@ -21,3 +21,8 @@ class UsuarioModel(_db.Model):
     def encontrar_por_usuario(cls, usuario):
         """Método para encontrar usuario en base de datos"""
         return cls.query.filter_by(usuario=usuario).first()
+    
+    @classmethod
+    def encontrar_por_id(cls,id_usuario):
+        """Método para encontrar id de usuario en la base de datos"""
+        return cls.query.filter_by(id_usuario=id_usuario).first()
