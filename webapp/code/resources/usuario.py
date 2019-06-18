@@ -18,12 +18,12 @@ class Usuario(Resource):
 
     def post(self):
         """Solicitud post para registrar usuarios"""
-        datos = Usuario.parser.parse_args()
+        req = Usuario.parser.parse_args()
 
-        if UsuarioModel.encontrar_por_usuario(datos['usuario']):
+        if UsuarioModel.encontrar_por_usuario(req['usuario']):
             return {"Mensaje": "El usuario ya existe"}, 400
         
-        usuario = UsuarioModel(**datos)
+        usuario = UsuarioModel(**req)
         usuario.guardar_db()
         
         return {"Mensaje": "Usuario creado exitosamente"}, 201

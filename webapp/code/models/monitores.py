@@ -18,8 +18,8 @@ class MonitorModel(_db.Model):
         """Regresa en formato JSON el monitor actual"""
         return {
             'id_usuario': self.id_usuario,
-            'nombre': self.nombre,
-            'variable': self.variable
+            'Nombre': self.nombre,
+            'Variable': self.variable
             }
     
     @classmethod

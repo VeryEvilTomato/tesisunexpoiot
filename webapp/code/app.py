@@ -4,7 +4,7 @@ from flask_restful import Api
 
 from resources.usuario import Usuario
 from resources.monitores import Monitor
-#from resources.monitorDato import MonitorDato
+from resources.monitorDato import MonitorDato
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -15,7 +15,7 @@ api = Api(app)
 
 api.add_resource(Usuario, '/registrar')
 api.add_resource(Monitor, '/monitores')
-#api.add_resource(SwitchEstado, '/monitores/dato')
+api.add_resource(MonitorDato, '/monitores/dato')
 
 if __name__ == '__main__':
     from db import _db
