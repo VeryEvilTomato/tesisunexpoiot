@@ -3,7 +3,8 @@ from flask import Flask, request
 from flask_restful import Api
 
 from resources.usuario import Usuario
-from resources.switches import Switch
+from resources.monitores import Monitor
+#from resources.monitorDato import MonitorDato
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -13,7 +14,8 @@ app.secret_key = "unexpoIoTtesis"
 api = Api(app)
 
 api.add_resource(Usuario, '/registrar')
-api.add_resource(Switch, '/switches')
+api.add_resource(Monitor, '/monitores')
+#api.add_resource(SwitchEstado, '/monitores/dato')
 
 if __name__ == '__main__':
     from db import _db

@@ -6,3 +6,5 @@ _db.init_app(app)
 @app.before_first_request
 def crear_tablas():
     _db.create_all()
+
+app.run(port=5000)
