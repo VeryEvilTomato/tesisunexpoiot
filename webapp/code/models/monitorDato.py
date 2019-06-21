@@ -9,22 +9,27 @@ class MonitorDatoModel(_db.Model):
     zh = pytz.timezone('Etc/GMT-4')
     dtlocal = pytz.utc.localize(datetime.datetime.utcnow(), is_dst=None).astimezone(zh)
 
-    id_monitor = _db.Column(_db.Integer, _db.ForeignKey('monitores.id_monitor'))
-    id_monitorDato = _db.Column(_db.Integer, primary_key=True)
+    id = _db.Column(_db.Integer, primary_key=True)
     dato = _db.Column(_db.Float, nullable=False)
-    datetime = _db.Column(_db.DateTime, nullable=False,
+    fecha = _db.Column(_db.DateTime, nullable=False,
         default=pytz.utc.localize(datetime.datetime.utcnow(), is_dst=None).astimezone(pytz.timezone('America/Caracas'))
     )
+
+    id_monitor = _db.Column(_db.Integer, _db.ForeignKey('monitores.id'))
+    monitor = _db.relationship('MonitorModel')
 
     def __init__(self,id_monitor,dato):
         self.id_monitor = id_monitor
         self.dato = dato
 
     def json(self):
-        """Regresa en formato JSON el monitor actual"""
+        """Regresa en formato JSON el dato actual"""
         return {
-            'id_monitor': self.id_usuario,
-            'Dato': self.dato
+            'Dato': self.dato,
+            'Fecha': {
+                'Hora': self.fecha.hour,
+                'Min': self.fecha.minute
+            }
         }
 
     def guardar_en_db(self):

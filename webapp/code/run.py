@@ -7,4 +7,4 @@ _db.init_app(app)
 def crear_tablas():
     _db.create_all()
 
-app.run(port=5000)
+app.run(host='0.0.0.0')

@@ -4,7 +4,7 @@ from db import _db
 class UsuarioModel(_db.Model):
     """Model para los usuarios registrados"""
     __tablename__ = 'usuarios'
-    id_usuario = _db.Column(_db.Integer, primary_key=True)
+    id = _db.Column(_db.Integer, primary_key=True)
     usuario = _db.Column(_db.String(20), unique=True)
     password = _db.Column(_db.String(30))
 
@@ -25,4 +25,4 @@ class UsuarioModel(_db.Model):
     @classmethod
     def encontrar_por_id(cls,id_usuario):
         """Método para encontrar id de usuario en la base de datos"""
-        return cls.query.filter_by(id_usuario=id_usuario).first()
+        return cls.query.filter_by(id=id_usuario).first()
