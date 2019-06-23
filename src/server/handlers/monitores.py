@@ -1,7 +1,7 @@
 from datetime import date
 from flask_restful import Resource, reqparse
-from models.monitores import MonitorModel
-from models.usuario import UsuarioModel 
+from server.models.monitores import MonitorModel
+from server.models.usuario import UsuarioModel 
 
 
 class Monitor(Resource):

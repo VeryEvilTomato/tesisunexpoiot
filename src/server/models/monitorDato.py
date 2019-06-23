@@ -1,6 +1,6 @@
 import datetime
 import pytz
-from db import _db
+from server.data.db import _db
 
 class MonitorDatoModel(_db.Model):
     """Modelo para gestionar los datos del sensor análogo IoT a monitorear"""

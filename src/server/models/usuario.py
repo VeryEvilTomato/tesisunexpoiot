@@ -1,4 +1,4 @@
-from db import _db
+from server.data.db import _db
 
 
 class UsuarioModel(_db.Model):

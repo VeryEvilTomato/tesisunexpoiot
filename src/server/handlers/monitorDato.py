@@ -1,7 +1,7 @@
 import datetime
 from flask_restful import Resource, reqparse
-from models.monitorDato import MonitorDatoModel
-from models.monitores import MonitorModel
+from server.models.monitorDato import MonitorDatoModel
+from server.models.monitores import MonitorModel
 
 class MonitorDato(Resource):
     """Clase para gestión de cada dato"""
