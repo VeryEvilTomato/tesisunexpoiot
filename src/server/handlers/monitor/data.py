@@ -1,38 +1,31 @@
 import datetime
 from flask_restful import Resource, reqparse
-from models.monitorDato import MonitorDatoModel
-from models.monitores import MonitorModel
+from server.models.datum import MonitorDatumModel
+from server.models.monitor import MonitorModel
 
-class MonitorDato(Resource):
+class MonitorDatum(Resource):
     """Clase para gestión de cada dato"""
     parser = reqparse.RequestParser()
 
     parser.add_argument(
-        'id_monitor',
-        type=int,
-        required=True,
-        help="El campo 'id_monitor' no puede dejarse en blanco"
-    )
-
-    parser.add_argument(
-        'dato',
+        'datum',
         type=float,
         required=True,
         help="El campo 'dato' no puede dejarse en blanco"
     )
 
-    def post(self):
+    def post(self,id_monitor):
         """Solicitud para guardar un dato nuevo de un monitor en la base de datos"""
 
-        req = MonitorDato.parser.parse_args()
+        req = MonitorDatum.parser.parse_args()
 
-        monitorDato = MonitorDatoModel(**req)
+        monitorDatum = MonitorDatumModel(id_monitor,**req)
 
-        if not MonitorModel.encontrar_por_id(req["id_monitor"]):
-            return{"Mensaje": "No existe un usuario con ese id_usuario"},400
+        if not MonitorModel.find_by_id(id_monitor):
+            return{"Mensaje": "No existe un monitor con ese ID"},400
         
         try:
-            monitorDato.guardar_en_db()
+            monitorDatum.save_db()
         except:
             return {"Mensaje": "Un error ha ocurrido insertando este dato"}, 500
 

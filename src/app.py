@@ -3,6 +3,9 @@ from flask import Flask, request
 from flask_restful import Api
 
 from server.handlers.user.users import User
+from server.handlers.monitor.monitors import Monitor
+from server.handlers.monitor.data import MonitorDatum
+from server.handlers.monitor.day import MonitorDay
 
 #Configuración básica del servidor
 app = Flask(__name__)
@@ -15,6 +18,6 @@ api = Api(app)
 
 #Rutas para el servidor
 api.add_resource(User, '/api/user/register')
-#api.add_resource(Monitor, '/monitors/<int:id_usuario>')
-#api.add_resource(MonitorDia, '/monitores/<int:id_monitor>/<int:fecha>')
-#api.add_resource(MonitorDato, '/monitores/dato')
+api.add_resource(Monitor, '/api/monitors/<int:id_monitor>')
+api.add_resource(MonitorDatum, '/api/monitors/<int:id_monitor>/data')
+api.add_resource(MonitorDay, '/api/monitors/<int:id_monitor>/data/<string:date>')
