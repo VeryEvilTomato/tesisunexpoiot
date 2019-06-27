@@ -1,0 +1,8 @@
+backup
+venv
+.DS_Store
+__pycache__
+
+#Servidor
+/src/servidor/__pycache__/
+/src/modelos/__pycache__/

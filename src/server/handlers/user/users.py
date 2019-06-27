@@ -1,29 +1,31 @@
 from flask_restful import Resource, reqparse
-from models.usuario import UsuarioModel
+from server.models.user import UserModel
 
-class Usuario(Resource):
+
+class User(Resource):
+    """Clase para gestionar la ruta relacionada con registrar los usuarios"""
     parser = reqparse.RequestParser()
     parser.add_argument(
-        'usuario',
+        'user',
         type=str,
         required=True,
-        help="El campo 'Usuario' no puede dejarse en blanco"
+        help="El campo 'user' no puede dejarse en blanco"
     )
     parser.add_argument(
         'password',
         type=str,
         required=True,
-        help="El campo 'Contraseña' no puede dejarse en blanco"
+        help="El campo 'password' no puede dejarse en blanco"
     )
 
     def post(self):
         """Solicitud post para registrar usuarios"""
-        req = Usuario.parser.parse_args()
+        req = User.parser.parse_args()
 
-        if UsuarioModel.encontrar_por_usuario(req['usuario']):
+        if UserModel.find_by_user(req['user']):
             return {"Mensaje": "El usuario ya existe"}, 400
         
-        usuario = UsuarioModel(**req)
-        usuario.guardar_db()
+        usuario = UserModel(**req)
+        usuario.save_db()
         
         return {"Mensaje": "Usuario creado exitosamente"}, 201

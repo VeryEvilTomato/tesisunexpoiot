@@ -9,7 +9,7 @@ class MonitorDato(Resource):
 
     parser.add_argument(
         'id_monitor',
-        type=float,
+        type=int,
         required=True,
         help="El campo 'id_monitor' no puede dejarse en blanco"
     )

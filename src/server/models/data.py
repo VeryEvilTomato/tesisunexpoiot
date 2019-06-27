@@ -34,5 +34,6 @@ class MonitorDatoModel(_db.Model):
 
     def guardar_en_db(self):
         """Guardar monitor en la base de datos"""
+        self.fecha = pytz.utc.localize(datetime.datetime.utcnow(), is_dst=None).astimezone(pytz.timezone('America/Caracas'))
         _db.session.add(self)
         _db.session.commit()
