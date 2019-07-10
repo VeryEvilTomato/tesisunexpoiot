@@ -42,5 +42,5 @@ pipenv run python src/run.py
 - `DELETE /api/monitors/<id>` - Borrar un monitor segun su ID
 
 - `POST /api/monitors/2/data/` - Registrar lecturas para el monitor 2
-- `GET  /api/monitors/1/data/date/2019-06-23` - Listado de lecturas del monitor de ID 1 el 2019-06-23 (Año-Mes-Día)
+- `GET  /api/monitors/1/data/date/2019-06-23` - Listado de lecturas del monitor de ID 1 el 20190623 (AñoMesDía)
 
