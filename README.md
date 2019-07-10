@@ -36,9 +36,11 @@ pipenv run python src/run.py
 
 ## Comportamiento del API
 
-- `GET /api/monitores/` - listado de monitores
-- `GET /api/monitores/1/` - informacion del monitor 1
-- `GET /api/monitores/1/lecturas/` - listado de lecturas del monitor 1
-- `GET /api/monitores/1/lecturas/fecha/20190623` - listado de lecturas del monitor 1 el 20190623
-- `POST /api/monitores/2/` - registar el monitor 2
-- `POST /api/monitores/2/lecturas/` - registrar lecturas para el monitor 2
+- `POST /api/user/register` - Registrar usuario
+
+- `POST /api/monitors/` - Registrar un nuevo monitor
+- `DELETE /api/monitors/<id>` - Borrar un monitor segun su ID
+
+- `POST /api/monitors/2/data/` - Registrar lecturas para el monitor 2
+- `GET  /api/monitors/1/data/date/2019-06-23` - Listado de lecturas del monitor de ID 1 el 2019-06-23 (Año-Mes-Día)
+
