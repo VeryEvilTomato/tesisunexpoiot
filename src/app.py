@@ -18,6 +18,6 @@ api = Api(app)
 
 #Rutas para el servidor
 api.add_resource(User, '/api/user/register')
-api.add_resource(Monitor, '/api/monitors/<int:id_monitor>')
-api.add_resource(MonitorDatum, '/api/monitors/<int:id_monitor>/data')
-api.add_resource(MonitorDay, '/api/monitors/<int:id_monitor>/data/date/<string:date>')
+api.add_resource(Monitor, '/api/user/<int:id_user>/monitors/<int:id_monitor>')
+api.add_resource(MonitorDatum, '/api/user/<int:id_user>/monitors/<int:id_monitor>/data')
+api.add_resource(MonitorDay, '/api/user/<int:id_user>/monitors/<int:id_monitor>/data/date/<string:date>')

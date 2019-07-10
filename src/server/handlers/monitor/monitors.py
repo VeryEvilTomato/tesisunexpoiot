@@ -9,12 +9,6 @@ class Monitor(Resource):
     parser = reqparse.RequestParser()
     
     parser.add_argument(
-        'id_user',
-        type=int,
-        required=True,
-        help="Todo monitor necesita un nombre"
-    )
-    parser.add_argument(
         'name',
         type=str,
         required=True,
@@ -27,17 +21,17 @@ class Monitor(Resource):
         help="Todo monitor observa una variable"
     )
 
-    def post(self,id_monitor):
+    def post(self,id_monitor,id_user):
         """Solicitud para guardar un Monitor nuevo en la base de datos"""
 
         req = Monitor.parser.parse_args()
 
-        if MonitorModel.find_by_name_id(req["name"],req["id_user"]):
+        if MonitorModel.find_by_name_id(req["name"],id_user):
             return {"Mensaje": "Un Monitor con ese nombre ya existe"},400
-        if not UserModel.find_by_id(req["id_user"]):
+        if not UserModel.find_by_id(id_user):
             return {"Mensaje": "El ID de usuario no existe"},400
         
-        monitor = MonitorModel(**req)
+        monitor = MonitorModel(id_user,**req)
         
         try:
             monitor.save_db()
@@ -46,8 +40,11 @@ class Monitor(Resource):
 
         return {"Mensaje": "Monitor creado exitosamente"},201
 
-    def delete(self,id_monitor):
+    def delete(self,id_monitor,id_user):
         """Solicitud para borrar un monitor de la base de datos"""
+
+        if not UserModel.find_by_id(id_user):
+            return {"Mensaje": "No se encontró un usuario con ese ID"},400
         
         monitor = MonitorModel.find_by_id(id_monitor)
 
