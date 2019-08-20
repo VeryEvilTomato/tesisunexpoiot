@@ -12,7 +12,7 @@ class MonitorDay(Resource):
         if not UserModel.find_by_id(id_user):
             return {"Mensaje":"No existe un usuario con ese ID"},400
 
-        dateDay = datetime.strptime(date,'%Y-%m-%d')
+        dateDay = datetime.strptime(date,'%Y%m%d')
         monitor = MonitorModel.find_by_id(id_monitor)
 
         if monitor:

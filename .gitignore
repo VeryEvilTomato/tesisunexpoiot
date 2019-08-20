@@ -2,7 +2,12 @@ backup
 venv
 .DS_Store
 __pycache__
+.vscode
 
 #Servidor
-/src/servidor/__pycache__/
-/src/modelos/__pycache__/
+/src/server/__pycache__/
+/src/models/__pycache__/
+
+#App
+/src/client/node_modules/
+/src/client/build/
