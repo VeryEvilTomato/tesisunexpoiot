@@ -1,8 +1,7 @@
 # Casa domótica / Aplicación IoT
 
-Autores:
+Autor:
 - Orlando Guevara
-- Luixandri Hernandez
 
 
 ## Ambiente de desarrollo
@@ -15,6 +14,11 @@ pipenv install
 Para ejecutar la aplicación web y el servidor usa el comando:
 ```
 pipenv run python src/run.py
+```
+
+Para generar un build de la aplicación web, se debe ejecutar el siguiente comando estando dentro de la carpeta `src/client`:
+```
+npm run build
 ```
 
 ## Arquitectura del sistema
