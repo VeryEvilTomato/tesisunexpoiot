@@ -1,41 +1,73 @@
 import React, { Component } from 'react'
 
 import NavMenu from './components/nav/NavMenu'
+import DeviceList from './components/content/DeviceList'
+import Aside from './components/aside/Aside'
+import axios from 'axios'
 
 import './App.css';
 
 export default class App extends Component {
 	constructor(props) {
 		super(props);
-		this.contentHandler = this.contentHandler.bind(this);
-		this.logoffHandler = this.logoffHandler.bind(this);
 		this.state = {
-			content: null
+			contentType: null,
+			content: [],
+			device: null,
+			sidebar: null,
+			userid: 1
 		}
 	}
-	contentHandler(section) {
-        this.setState({ content: section })
+	addDeviceHandler = () => {
+		console.log("En progreso - Agregar dispositivo")
+	}
+	contentTypeHandler = (props) => {
+		const {contentType, request} = props
+		if(this.state.contentType !== contentType){
+			this.setState({ contentType: contentType })
+			axios.get('/api/user/' + this.state.userid + request).then(
+				(response) => {
+					this.setState({content: response.data.monitors})
+				}
+			)
+		}
+	}
+	deviceSetHandler = (props) => {
+		const {device} = props
+		this.setState({device})
 	}
 	logoffHandler = () => {
-		console.log("La sección es: " + this.state.content)
-        // console.log("Su sesión ha sido cerrada")
+		console.log(this.state.device)
     }
 	render() {
 		return (
 			<main>
 				<header>Universidad Nacional Experimental Politécnica “Antonio José de Sucre” Vicerrectorado Puerto Ordaz</header>
 				<div className='container'>
+					{/* Barra de navegación */}
 					<div className='nav'>
 						<img src="/images/unexpo_logo.png" alt="Logo UNEXPO" />
-						<NavMenu 
-							contentHandler={this.contentHandler}
+						<NavMenu
+							contentTypeHandler={this.contentTypeHandler}
 							logoffHandler={this.logoffHandler}
 						/>
 					</div>
-				<div className='content'>
-					Nisi id irure exercitation cillum dolore. Aliqua ut aliquip aliqua culpa ipsum qui laborum dolore excepteur velit in. Fugiat ullamco cupidatat cupidatat proident ut. Velit minim ex ipsum in veniam. Cupidatat in magna proident ex ea voluptate sint cupidatat tempor ad nisi amet. Esse magna reprehenderit quis do irure proident. Est nisi anim qui enim magna sint pariatur consectetur sunt in enim non. Ullamco consequat Lorem eu commodo.
-         	 	</div>
-					<div className='sidebar'> Pariatur ipsum elit aliquip reprehenderit amet voluptate.</div>
+					{/* Contenido central */}
+					<div className='content'>
+						{/* Selección/Agregar dispositivo */}
+						<DeviceList 
+							contentType={this.state.contentType}
+							content={this.state.content}
+							deviceSetCallback={this.deviceSetHandler}
+						/>
+						<div className='divisor'/>
+						{/* Visualización del dispositivo */
+							this.state.device === null ? "" :
+							<div className='panel'>{this.state.device.name}</div>
+						}
+					</div>
+					{/* Barra de información */}
+					{ this.state.sidebar === null ? "" : <Aside/> }
 				</div>
 			</main>
 		)

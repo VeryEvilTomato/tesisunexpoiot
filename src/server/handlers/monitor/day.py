@@ -16,7 +16,7 @@ class MonitorDay(Resource):
         monitor = MonitorModel.find_by_id(id_monitor)
 
         if monitor:
-            return monitor.get_day_json(dateDay.date())
+            return monitor.get_day_json(dateDay.date()), 200
         else:
-            return {"Mensaje": "No se encontró el ID del monitor"}
+            return {"Mensaje": "No se encontró el ID del monitor"}, 400
 

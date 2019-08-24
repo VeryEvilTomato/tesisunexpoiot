@@ -1,6 +1,20 @@
+/* Configuración general del documento */
+
 main {
   font-size: 15px;
   min-height: 800px;
+}
+
+.container {
+  color: white;
+  display: flex;
+  min-height: 100vh; 
+  flex-flow: column wrap; 
+  flex-basis: 100%;
+}
+
+.container > * {
+  padding: 15px;
 }
 
 header {
@@ -10,49 +24,15 @@ header {
   font-size: 15px;
 }
 
-.container {
-  color: white;
-  display: flex;
-  min-height: 100vh;
-}
-
-.container > * {
-  padding: 15px;
-  align-items: center;
-  justify-content: center;
-}
-
-.container .nav img { display: none }
-
-.container .nav {
-  background-color: #E7717D;
-}
-
-.container .content {
-  background-color: #e1e6eb;
-  color: black;
-}
-
-.container .sidebar{
-  background-color: #E7717D;
-}
-
-@media all and (min-width: 400px) {
-  .container          { flex-flow: column wrap; flex-basis: 100%}
-  .container .content { flex-grow: 2}
-  .container .nav img { display: none }
+.divisor {
+  background-color: #7E685A;
+  flex-basis: 100%;
+  min-height: 0.5vw;
+  border-radius: 15px;
 }
 
 @media all and (min-width: 800px) {
-  .container          { flex-flow: row wrap}
+  .container          { flex-flow: row wrap }
   .container > *      { flex-basis: 0%; font-size: 1vw }
-  .container .nav img { 
-    display: flex; 
-    width: 80%;
-    margin: 10%;
-  }
    header             { font-size: 1vw  }
-  .container .nav     { flex-grow: 0.5; }
-  .container .content { flex-grow: 2    }
-  .container .sidebar { flex-grow: 0.5  }
 }

@@ -1,0 +1,3 @@
+.container .sidebar{ background-color: #E7717D }
+
+@media all and (min-width: 800px) { .container .sidebar { flex-grow: 0.5 }}

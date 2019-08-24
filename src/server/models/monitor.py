@@ -19,7 +19,7 @@ class MonitorModel(_db.Model):
     def json(self):
         """Regresa en formato JSON el monitor actual"""
         return {
-            'id_user': self.id_usuario,
+            'id_user': self.id_user,
             'name': self.name,
             'variable': self.variable
             }
@@ -33,11 +33,20 @@ class MonitorModel(_db.Model):
     def find_by_name_id(cls,name,id_user):
         """Encontrar monitor en la DB por su nombre"""
         return cls.query.filter_by(name=name).filter_by(id_user=id_user).first()
+
+    @classmethod
+    def return_by_id_json(cls, id_user):
+        """Encontrar todos los monitores asociados al usuario segun su ID"""
+        monitors = cls.query.filter_by(id_user=id_user).all()
+        return {'monitors': [monitor.json() for monitor in monitors]}
     
     def get_day_json(self,dataDate):
         """Regresar JSON con los valores de un dia en específico"""
         data = self.data.all()
-        return {'data': [datum.json() for datum in filter(lambda x: x.date.date() == dataDate,data)]}
+        return {'data': [
+            datum.json() for datum in filter(lambda x: x.date.date() == dataDate, data)
+            ]
+        }
 
     def save_db(self):
         """Guardar monitor en la base de datos"""
