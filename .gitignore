@@ -11,3 +11,4 @@ __pycache__
 #App
 /src/client/node_modules/
 /src/client/build/
+/src/client/package-lock.json
