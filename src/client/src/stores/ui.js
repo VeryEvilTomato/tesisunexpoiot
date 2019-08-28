@@ -1,14 +1,28 @@
 import { decorate, observable, action } from 'mobx'
+import axios from 'axios'
 
-export default class uiStore {
-    contentType;
+class ui {
+    userId = "1";
+    selection = null;
+    selectionText = null;
+    content = null;
 
-    setContentType(contentType) {
-        this.contentType = contentType;
+    setContent = (selection, selectionText) => {
+        this.selection = selection;
+        this.selectionText = selectionText
+        axios.get(`/api/user/${this.userId}/${selection}`)
+        .then((response) => { this.content = response.data.monitors });
     }
 }
 
-decorate(uiStore,{
-    contentType: observable,
-    setContentType: action
+var uiState = window.uiDebug = new ui()
+
+decorate(uiState, {
+    userId: observable,
+    selection: observable,
+    selectionText: observable,
+    content: observable,
+    setContent: action
 })
+
+export default uiState

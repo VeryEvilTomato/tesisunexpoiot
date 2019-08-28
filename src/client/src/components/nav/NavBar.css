@@ -1,0 +1,27 @@
+.app .NavBar {
+    background-color:#E7717D;
+    display: flex;
+    flex-flow: row wrap;
+    flex: 1 1 2vw;
+}
+
+.app .NavBar > * {
+    flex-basis: 100%;
+    min-height: 60px;
+    max-height: 3vw;
+    margin: 1rem;
+}
+
+button {
+    background-color: #e1e6eb;
+    border-style: none;
+    border-radius: 10px;
+    justify-content: space-around;
+}
+
+button:hover { background-color: #e1e6eb7e }
+
+@media all and (min-width: 1000px) {
+    .app .NavBar { flex-flow: column wrap }
+    .app .NavBar > * { flex-basis: 100% }
+}
