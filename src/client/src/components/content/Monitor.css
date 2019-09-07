@@ -1,0 +1,16 @@
+.datepicker {
+    display: flex;
+    justify-content: center;
+}
+
+.datepicker p {
+    margin-top: 5px;
+    margin-bottom: 0;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.prueba {
+    overflow: auto;
+    max-height: 500px;
+}

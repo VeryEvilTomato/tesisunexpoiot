@@ -19,6 +19,7 @@ class MonitorModel(_db.Model):
     def json(self):
         """Regresa en formato JSON el monitor actual"""
         return {
+            'id': self.id,
             'id_user': self.id_user,
             'name': self.name,
             'variable': self.variable

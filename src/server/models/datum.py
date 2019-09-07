@@ -20,9 +20,9 @@ class MonitorDatumModel(_db.Model):
         """Regresa en formato JSON el dato actual"""
         return {
             'datum': self.datum,
-            'date': {
-                'Hour': self.date.hour,
-                'Min': self.date.minute
+            'time': {
+                'hour': self.date.hour,
+                'min': self.date.minute
             }
         }
 

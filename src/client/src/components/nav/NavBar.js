@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
+import logo from './unexpo_logo.svg'
 
 import './NavBar.css'
 
-const NavBar = observer (class NavBar extends Component {
+const NavBar = observer(class NavBar extends Component {
     render() {
         return (
             <div className='NavBar'>
-                <div id="logo">Logo</div>
+                <div className='container'>
+                    <img id="logo" src={logo} alt="Logo de la universidad" ></img>
+                </div>
                 <button onClick={() => console.log("Agregar dispositivo")}
                 >Agregar dispositivo</button>
                 <button onClick={() => {
