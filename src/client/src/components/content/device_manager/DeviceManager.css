@@ -1,0 +1,16 @@
+.DeviceManager {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
+
+.deviceoptions {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+}
+
+.deviceoptions > * {
+    flex: 1 1 40%;
+    margin: 20px;
+}

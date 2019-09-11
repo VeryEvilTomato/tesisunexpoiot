@@ -15,7 +15,7 @@ var RemoveDevice =  observer(class RemoveDevice extends Component {
                             <p><b>Variable:</b> {device.variable}</p>
                             <button
                                 id="deviceButton"
-                                onClick={() => { this.props.uiState.removeDevice(device) }}
+                                onClick={() => { this.props.uiState.removeDevice(device, "monitors") }}
                             >Eliminar dispositivo</button>
                         </div>
                     )

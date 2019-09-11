@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 import  { observer } from 'mobx-react'
 
+import './DeviceManager.css'
+
 import AddDevice from './AddDevice'
 import RemoveDevice from './RemoveDevice'
 
@@ -19,9 +21,9 @@ const DeviceManager = observer (class DeviceManager extends Component {
     optionHandler = (option) => { this.props.uiState.managerSelection = option }
     render() {
         return (
-            <div>
+            <div className="DeviceManager">
                 {this.props.uiState.managerSelection !== null ? "" :
-                    <div className="devicemanager">
+                    <div className="deviceoptions">
                         <button onClick={() => { this.optionHandler("add") } }>Agregar dispositivo</button>
                         <button onClick={() => { this.optionHandler("delete")} }>Eliminar dispositivo</button>
                     </div>

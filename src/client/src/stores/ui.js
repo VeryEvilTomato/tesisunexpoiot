@@ -44,7 +44,9 @@ class ui {
     setDevicemanager = () => {
         this.selection = "manager";
         this.selectionText = "Gestor de Dispositivos"
-
+        this.updateData();
+    }
+    updateData = () => {
         axios.get(`/api/user/${this.userId}/monitors`)
         .then((response) => { this.content = response.data.content })
         .catch((error) => { alert(error.response.data.mensaje) })
@@ -52,7 +54,6 @@ class ui {
         axios.get(`/api/user/${this.userId}/options`)
         .then((response) => { this.options = response.data.content })
     }
-    
     setDevice = (device) => {
         if(device !== this.device){
             this.device = device
@@ -67,11 +68,16 @@ class ui {
             if(this.status === 201) alert("Dispositivo correctamente agregado al sistema");
         })
         .catch((error) => { alert(error.response.data.mensaje) })
+        .finally(this.updateData)
     }
-    removeDevice = (device) => {
-        console.log("Eliminado")
+    removeDevice = (device, type) => {
+        const accept = window.confirm("¿Está seguro de querer borrar el dispositivo?")
+        if(!accept) return
+        axios.delete(`/api/user/${this.userId}/${type}/${device.id}`)
+        .catch((error) => { alert(error.response.data.mensaje) })
+        .finally(this.updateData)
     }
-    setDay = (date) => { 
+    setDay = (date) => {
         this.dateSelected = date;
         this.dayDataRequest(date);
     }
@@ -133,6 +139,7 @@ decorate(uiState, {
     status: observable,
     valor: observable,
     setContent: action,
+    updateData: action,
     setDeviceManager: action,
     setDevice: action,
     setDay: action
