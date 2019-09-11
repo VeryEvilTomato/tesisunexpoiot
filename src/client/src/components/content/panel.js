@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 
-import Monitor from './Monitor'
+import Monitor from './monitor/Monitor'
 
 const panel = observer(class panel extends Component {
     renderSwitch(selection){
@@ -13,12 +13,13 @@ const panel = observer(class panel extends Component {
                         />
             case "controls":
                 return <div>Control placeholder</div>
+            default:
+                return ""
         }
     }
     render() {
         return (
             <div className='Panel'>
-                <h2>{ this.props.uiState.device.name }</h2>
                 {this.renderSwitch(this.props.uiState.selection)}
             </div>
         )

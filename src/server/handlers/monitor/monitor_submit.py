@@ -26,18 +26,18 @@ class MonitorSubmit(Resource):
         req = MonitorSubmit.parser.parse_args()
 
         if MonitorModel.find_by_name_id(req["name"],id_user):
-            return {"Mensaje": "Un Monitor con ese nombre ya existe"},400
+            return {"mensaje": "Un monitor con ese nombre ya existe"},400
         if not UserModel.find_by_id(id_user):
-            return {"Mensaje": "El ID de usuario no existe"},400
+            return {"mensaje": "El ID de usuario no existe"},400
         
         monitor = MonitorModel(id_user,**req)
         
         try:
             monitor.save_db()
         except:
-            return{ "Mensaje": "Un error ha ocurrido insertando este monitor"},500
+            return{ "mensaje": "Un error ha ocurrido insertando este monitor"},500
 
-        return {"Mensaje": "Monitor creado exitosamente"},201
+        return {"mensaje": "Monitor creado exitosamente"},201
 
 
         

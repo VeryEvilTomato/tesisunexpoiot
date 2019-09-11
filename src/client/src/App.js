@@ -17,7 +17,7 @@ const App = observer(class App extends Component {
 						className='app' 
 						uiState={this.props.uiState}
 					/>
-					{this.props.uiState.content === null ?
+					{this.props.uiState.selection === null ?
 						<div className="welcome">
 							<p>Bienvenidos a Tomate IoT</p>
 						</div>

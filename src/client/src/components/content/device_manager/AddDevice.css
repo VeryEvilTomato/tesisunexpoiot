@@ -1,0 +1,31 @@
+.AddRemove {
+    display: flex;
+    flex-flow: row wrap;
+    align-content: center;
+    justify-content: space-evenly;
+    margin: 10px;
+    height: 400px;
+}
+
+.AddRemove .container {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+}
+
+.AddRemove .container > * { margin: 30px }
+
+.AddRemove .container .formClass {
+    padding-left: 30px;
+    border-radius: 15px;
+    width: 500px;
+    background: linear-gradient(#E7717D, #f1bc7f);
+    color: white;
+    box-shadow: 0px 10px 5px grey;
+}
+
+h3              { text-align: center    }
+#formName       { margin-left: 11px     }
+#formVariable   { margin-left: 18px     }
+#formType       { margin-left: 44px     }
+#formSubmit     { margin-left: 183px    }

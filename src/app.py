@@ -3,6 +3,7 @@ from flask import Flask, request, render_template
 from flask_restful import Api
 
 from server.handlers.user.users import User
+from server.handlers.user.options import Options
 from server.handlers.monitor.monitor_submit import MonitorSubmit
 from server.handlers.monitor.monitor_delete import MonitorDelete
 from server.handlers.monitor.monitors import Monitors
@@ -26,6 +27,7 @@ api.add_resource(User, '/api/user/register')
 
 api.add_resource(Monitors, '/api/user/<int:id_user>/monitors')
 api.add_resource(MonitorSubmit, '/api/user/<int:id_user>/monitors')
+api.add_resource(Options, '/api/user/<int:id_user>/options')
 api.add_resource(MonitorDelete, '/api/user/<int:id_user>/monitors/<int:id_monitor>')
 api.add_resource(MonitorDatum, '/api/user/<int:id_user>/monitors/<int:id_monitor>/data')
 api.add_resource(MonitorDay, '/api/user/<int:id_user>/monitors/<int:id_monitor>/data/date/<string:date>')

@@ -39,7 +39,7 @@ class MonitorModel(_db.Model):
     def return_by_id_json(cls, id_user):
         """Encontrar todos los monitores asociados al usuario segun su ID"""
         monitors = cls.query.filter_by(id_user=id_user).all()
-        return {'monitors': [monitor.json() for monitor in monitors]}
+        return {'content': [monitor.json() for monitor in monitors]}
     
     def get_day_json(self,dataDate):
         """Regresar JSON con los valores de un dia en específico"""

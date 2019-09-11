@@ -1,5 +1,6 @@
 import { decorate, observable, action } from 'mobx'
 import axios from 'axios'
+import DeviceManager from '../components/content/device_manager/DeviceManager';
 
 const dataReset = {
     labels: [null],
@@ -20,9 +21,11 @@ class ui {
     // - UI data -
     selection = null;
     selectionText = null;
-    wrongDate = false;
     emptyDate = false;
+    status = null;
     // - Device data -
+    managerSelection = null;
+    options = null;
     content = null;
     device = null;
     dateSelected = new Date();
@@ -31,25 +34,45 @@ class ui {
     setContent = (selection, selectionText) => {
         if (this.selection !== selection) {
             this.selection = selection;
-            this.selectionText = selectionText
+            this.selectionText = selectionText;
+            this.content = null;
             axios.get(`/api/user/${this.userId}/${selection}`)
-            .then((response) => { this.content = response.data.monitors });
+            .then((response) => { this.content = response.data.content })
+            .catch((error) => { alert(error.response.data.mensaje) })
         }
     }
+    setDevicemanager = () => {
+        this.selection = "manager";
+        this.selectionText = "Gestor de Dispositivos"
+
+        axios.get(`/api/user/${this.userId}/monitors`)
+        .then((response) => { this.content = response.data.content })
+        .catch((error) => { alert(error.response.data.mensaje) })
+
+        axios.get(`/api/user/${this.userId}/options`)
+        .then((response) => { this.options = response.data.content })
+    }
+    
     setDevice = (device) => {
         if(device !== this.device){
             this.device = device
             this.dayData = dataReset
+            this.dateSelected = new Date();
         }
     }
+    submitDevice = (deviceData) => {
+        axios.post(`/api/user/${this.userId}/${deviceData.request}`, deviceData.jsonData)
+        .then((response) => { 
+            this.status = response.status
+            if(this.status === 201) alert("Dispositivo correctamente agregado al sistema");
+        })
+        .catch((error) => { alert(error.response.data.mensaje) })
+    }
+    removeDevice = (device) => {
+        console.log("Eliminado")
+    }
     setDay = (date) => { 
-        const dateNow = new Date();
-        if(dateNow.getTime() < date.getTime()) { 
-            this.wrongDate = true; 
-            return 
-        }
         this.dateSelected = date;
-        this.wrongDate = false;
         this.dayDataRequest(date);
     }
     dayDataRequest = (date) => {
@@ -100,14 +123,17 @@ decorate(uiState, {
     userId: observable,
     selection: observable,
     selectionText: observable,
+    managerSelection: observable,
+    option: observable,
     content: observable,
     device: observable,
     dateSelected: observable,
-    wrongDate: observable,
     dayData: observable,
     emptyDate: observable,
+    status: observable,
     valor: observable,
     setContent: action,
+    setDeviceManager: action,
     setDevice: action,
     setDay: action
 })

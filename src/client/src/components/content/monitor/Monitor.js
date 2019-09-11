@@ -7,8 +7,9 @@ import es from 'date-fns/locale/es';
 import { Line } from 'react-chartjs-2';
 
 import "./Monitor.css"
-import "./ScatterChart.css"
+import "./LineChart.css"
 import "react-datepicker/dist/react-datepicker.css";
+import { addDays } from 'date-fns';
 
 registerLocale('es', es)
 
@@ -28,7 +29,8 @@ const Monitor = observer( class Monitor extends Component {
 						y: 1
 					}],
 					borderWidth: 1,
-					backgroundColor: "#f1bc7f"
+					backgroundColor: "#f1bc7f",
+					pointRadius: 5
 				}]
 			},
 			options: {
@@ -38,27 +40,32 @@ const Monitor = observer( class Monitor extends Component {
 		}
 	}
 	componentDidMount(){
-		console.log(this.chartReference.chartInstance)
+		const datePickers = document.getElementsByClassName("react-datepicker__input-container");
+    	Array.from(datePickers).forEach((el => el.childNodes[0].setAttribute("readOnly", true)))
 		this.chartUpdate = setInterval(() => {
 			this.setState({data: this.props.uiState.dayData});
 			console.log("Update")
 		}, 1000)
 	}
+	componentWillUnmount(){
+		this.chartReference.chartInstance.destroy();
+		clearInterval(this.chartUpdate);
+		this.props.uiState.device = null;
+	}
 	dateHandler = (date) => { this.props.uiState.setDay(date) }
     render() {
         return (
             <div>
+				<div id="division"></div>
+				<h2>{ this.props.uiState.device.name }</h2>
                 <p>El monitor visualiza todos los datos recaudados por el dispositivo durante <i>un día completo</i>, para seleccionar un día, por favor <b>clickear</b> la fecha en el recuadro.</p>
                 <div className="datepicker">
-                    {this.props.uiState.wrongDate ? 
-						<p>Fecha errónea, por favor elegir una fecha pasada:</p> 
-						: 
-						<p>Seleccione la fecha:</p>
-					}
                     <DatePicker
+						placeholderText="Clickear para seleccionar una fecha"
                         selected={this.props.uiState.dateSelected}
                         onChange={this.dateHandler}
-                        locale="es"
+						locale="es"
+						maxDate={addDays(new Date(),0)}
                     />
 					{this.props.uiState.emptyDate ?
 						<p>No existen datos registrados para la fecha suministrada</p>
@@ -71,20 +78,11 @@ const Monitor = observer( class Monitor extends Component {
 					}
                 </div>
                 <br/>
-				{
-					this.hideChart ? "" :
-					<Line
-						ref={(reference) => this.chartReference = reference}
-						data={this.state.data}
-						options={this.state.options}
-					/>
-				}
-				<button 
-					onClick={() => {
-						this.chartReference.chartInstance.destroy();
-						this.hideChart = true;
-					}}
-				>Destroy</button>
+				<Line
+					ref={(reference) => this.chartReference = reference}
+					data={this.state.data}
+					options={this.state.options}
+				/>
             </div>
         )
     }

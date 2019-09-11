@@ -11,14 +11,14 @@ const NavBar = observer(class NavBar extends Component {
                 <div className='container'>
                     <img id="logo" src={logo} alt="Logo de la universidad" ></img>
                 </div>
-                <button onClick={() => console.log("Agregar dispositivo")}
-                >Agregar dispositivo</button>
                 <button onClick={() => {
-                            this.props.uiState.setContent(
-                                "monitors", 
-                                "Lista de monitores"
-                            )
-                        } 
+                        this.props.uiState.setDevicemanager();
+                    }
+                }
+                >Gestor de dispositivos</button>
+                <button onClick={() => {
+                            this.props.uiState.setContent("monitors", "Lista de monitores")
+                        }
                     }
                 >Lista de monitores</button>
                 <button onClick={() => console.log("Lista de controles")}
