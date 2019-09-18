@@ -54,17 +54,19 @@ const AddDevice = observer(class AddDevice extends Component {
                                     placeholder="Escriba el nombre aquí"
                                 />
                             </p>
-                            <p><b>Seleccione la variable</b>
-                                <select
-                                    id="formVariable"
-                                    value={this.state.variable}
-                                    onChange={this.variableHandler}
-                                >
-                                {this.props.uiState.options.variables.map((variable) => {
-                                    return <option value={variable}>{variable}</option>
-                                })}
-                                </select>
-                            </p>
+                            {this.state.type === "switches" ? "" :
+                                <p><b>Seleccione la variable</b>
+                                    <select
+                                        id="formVariable"
+                                        value={this.state.variable}
+                                        onChange={this.variableHandler}
+                                    >
+                                    {this.props.uiState.options.variables.map((variable) => {
+                                        return <option value={variable}>{variable}</option>
+                                    })}
+                                    </select>
+                                </p>
+                            }
                             <p><b>Seleccione el tipo:</b>
                                 <select
                                     id="formType"

@@ -11,7 +11,7 @@ import './Content.css'
 const Content = observer(class Content extends Component {
     renderSwitch(selection) {
         switch(true) {
-            case ("controls" === selection || "monitors" === selection):
+            case "monitors" === selection || "switches" == selection:
                 return <DeviceList uiState={this.props.uiState}/>
             case "manager" === selection:
                 return <DeviceManager uiState={this.props.uiState}/>

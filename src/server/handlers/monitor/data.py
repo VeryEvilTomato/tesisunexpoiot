@@ -21,7 +21,7 @@ class MonitorDatum(Resource):
 
         req = MonitorDatum.parser.parse_args()
 
-        monitorDatum = MonitorDatumModel(id_monitor,**req)
+        monitorDatum = MonitorDatumModel(id_monitor, **req)
 
         if not MonitorModel.find_by_id(id_monitor):
             return{"Mensaje": "No existe un monitor con ese ID"},400

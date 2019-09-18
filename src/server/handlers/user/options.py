@@ -12,8 +12,12 @@ class Options(Resource):
                     {
                         "name":"Monitor",
                         "request":"monitors"
+                    },
+                    {
+                        "name": "Interruptor",
+                        "request": "switches"
                     }
                 ],
-                "variables": [ "Celsius", "Fahrenheit" ]
+                "variables": [ "Celsius", "Fahrenheit", "Candela", "Humedad" ]
             }
         }, 200

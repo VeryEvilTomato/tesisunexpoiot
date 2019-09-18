@@ -21,8 +21,11 @@ const NavBar = observer(class NavBar extends Component {
                         }
                     }
                 >Lista de monitores</button>
-                <button onClick={() => console.log("Lista de controles")}
-                >Lista de controles</button>
+                <button onClick={() => {
+                            this.props.uiState.setContent("switches", "Lista de interruptores")
+                        }
+                    }
+                >Lista de interruptores</button>
                 <button onClick={() => console.log("Abandonar sesión")}
                 >Abandonar sesión</button>
             </div>

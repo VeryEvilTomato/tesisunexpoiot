@@ -9,7 +9,7 @@ class MonitorModel(_db.Model):
     id_user = _db.Column(_db.Integer, _db.ForeignKey('users.id'))
     name = _db.Column(_db.String(30))
     variable = _db.Column(_db.String(30))
-    data = _db.relationship('MonitorDatumModel', lazy='dynamic')
+    data = _db.relationship('MonitorDatumModel', cascade="all,delete", lazy='dynamic')
 
     def __init__(self,id_user,name,variable):
         self.id_user = id_user
@@ -22,7 +22,8 @@ class MonitorModel(_db.Model):
             'id': self.id,
             'id_user': self.id_user,
             'name': self.name,
-            'variable': self.variable
+            'variable': self.variable,
+            'type': 'monitors'
             }
     
     @classmethod

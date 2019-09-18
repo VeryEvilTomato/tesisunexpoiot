@@ -1,6 +1,5 @@
 import { decorate, observable, action } from 'mobx'
 import axios from 'axios'
-import DeviceManager from '../components/content/device_manager/DeviceManager';
 
 const dataReset = {
     labels: [null],
@@ -44,10 +43,10 @@ class ui {
     setDevicemanager = () => {
         this.selection = "manager";
         this.selectionText = "Gestor de Dispositivos"
-        this.updateData();
+        this.updateContent("devices");
     }
-    updateData = () => {
-        axios.get(`/api/user/${this.userId}/monitors`)
+    updateContent = (type) => {
+        axios.get(`/api/user/${this.userId}/${type}`)
         .then((response) => { this.content = response.data.content })
         .catch((error) => { alert(error.response.data.mensaje) })
 
@@ -68,14 +67,17 @@ class ui {
             if(this.status === 201) alert("Dispositivo correctamente agregado al sistema");
         })
         .catch((error) => { alert(error.response.data.mensaje) })
-        .finally(this.updateData)
+        .finally(this.updateContent("devices"))
     }
-    removeDevice = (device, type) => {
+    removeDevice = (device) => {
         const accept = window.confirm("¿Está seguro de querer borrar el dispositivo?")
         if(!accept) return
-        axios.delete(`/api/user/${this.userId}/${type}/${device.id}`)
+        axios.delete(`/api/user/${this.userId}/${device.type}/${device.id}`)
         .catch((error) => { alert(error.response.data.mensaje) })
-        .finally(this.updateData)
+        .finally(() => {
+            this.updateContent("devices");
+            alert("Dispositivo eliminado");
+        })
     }
     setDay = (date) => {
         this.dateSelected = date;
@@ -118,6 +120,18 @@ class ui {
         this.dayData.labels = newLabels;
         this.dayData.datasets[0].data = newData;
         this.emptyDate = false;
+    }
+    changeSwitchState = (switchID) => {
+        console.log(switchID)
+        axios.put(`/api/user/${this.userId}/switches/${switchID}`)
+        .then((response) => { this.updateContent("switches") })
+        .catch((error) => { alert(error.response.data.mensaje) })
+        .finally(() => {
+            axios.get(`/api/user/${this.userId}/switches/${switchID}`)
+            .then((response) => {
+                this.device = response.data.device
+            })
+        })
     }
 }
 

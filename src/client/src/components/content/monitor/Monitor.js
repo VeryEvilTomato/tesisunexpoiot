@@ -50,7 +50,7 @@ const Monitor = observer( class Monitor extends Component {
 	componentWillUnmount(){
 		this.chartReference.chartInstance.destroy();
 		clearInterval(this.chartUpdate);
-		this.props.uiState.device = null;
+		this.props.uiState.setDevice(null)
 	}
 	dateHandler = (date) => { this.props.uiState.setDay(date) }
     render() {

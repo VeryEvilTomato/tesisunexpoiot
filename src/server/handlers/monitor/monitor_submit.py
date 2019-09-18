@@ -35,7 +35,7 @@ class MonitorSubmit(Resource):
         try:
             monitor.save_db()
         except:
-            return{ "mensaje": "Un error ha ocurrido insertando este monitor"},500
+            return { "mensaje": "Un error ha ocurrido insertando este monitor"},500
 
         return {"mensaje": "Monitor creado exitosamente"},201
 
