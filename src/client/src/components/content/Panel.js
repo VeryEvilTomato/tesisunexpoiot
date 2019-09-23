@@ -4,7 +4,9 @@ import { observer } from 'mobx-react'
 import Monitor from './monitor/Monitor'
 import Switch from './switch/Switch'
 
-const panel = observer(class panel extends Component {
+import './Panel.css'
+
+const Panel = observer(class Panel extends Component {
     renderSwitch(selection){
         switch (selection) {
             case "monitors":
@@ -24,4 +26,4 @@ const panel = observer(class panel extends Component {
     }
 })
 
-export default panel
+export default Panel

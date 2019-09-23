@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 import { observer } from 'mobx-react'
 
+import './Switch.css'
+
 const Switch = observer (class Switch extends Component {
     componentWillUnmount() {
         this.props.uiState.setDevice(null)
@@ -20,8 +22,8 @@ const Switch = observer (class Switch extends Component {
                     <div className="registry">
                         <p><b>Últimos diez cambios: </b></p>
                     {this.props.uiState.device.registry.reverse().map((data) =>
-                        <div>
-                            <p>{data.time} {data.state}</p>
+                        <div className="switchEntry">
+                            <p>{data.time} | {data.state}</p>
                         </div>
                     )}
                     </div>

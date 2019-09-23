@@ -1,0 +1,9 @@
+.switchEntry {
+    background-color: rgb(196, 166, 161);
+    border-radius: 5px;
+}
+
+.switchEntry p{
+    margin: 4px;
+    padding: 6px;
+}

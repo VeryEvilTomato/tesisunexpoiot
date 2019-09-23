@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 
-import Panel from './panel'
+import Panel from './Panel'
 import DeviceList from './DeviceList'
 
 import DeviceManager from './device_manager/DeviceManager'
