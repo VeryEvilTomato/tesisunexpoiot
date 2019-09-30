@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse
 from server.models.monitor import MonitorModel
 from server.handlers.user.users import UserModel 
-
+from flask_jwt import jwt_required
 
 class MonitorDelete(Resource):
     """Clase para borrar un monitor del sistema"""
@@ -14,6 +14,7 @@ class MonitorDelete(Resource):
         help="Especifique el nombre del monitor a borrar por favor"
     )
 
+    @jwt_required()
     def delete(self,id_monitor,id_user):
         """Solicitud para borrar un monitor de la base de datos"""
 

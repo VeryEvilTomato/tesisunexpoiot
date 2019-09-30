@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 from server.models.monitor import MonitorModel
-from server.handlers.user.users import UserModel 
+from server.handlers.user.users import UserModel
+from flask_jwt import jwt_required
 
 
 class MonitorSubmit(Resource):
@@ -20,6 +21,7 @@ class MonitorSubmit(Resource):
         help="Todo monitor observa una variable"
     )
 
+    @jwt_required()
     def post(self,id_user):
         """Solicitud para guardar un Monitor nuevo en la base de datos"""
 

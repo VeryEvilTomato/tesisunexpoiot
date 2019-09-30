@@ -30,6 +30,11 @@ class MonitorModel(_db.Model):
     def find_by_id(cls,id_monitor):
         """Encontrar monitor en la DB por su id"""
         return cls.query.filter_by(id=id_monitor).first()
+    
+    @classmethod
+    def find_by_name(cls,name):
+        """Encontrar monitor en la DB por su nombre"""
+        return cls.query.filter_by(name=name).first()
 
     @classmethod
     def find_by_name_id(cls,name,id_user):

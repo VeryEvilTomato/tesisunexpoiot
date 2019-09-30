@@ -17,6 +17,8 @@ const dataReset = {
 class ui {
     // - User data -
     userId = "1";
+    token = null;
+    config = { headers:{ Authorization: ""} }
     // - UI data -
     selection = null;
     selectionText = null;
@@ -29,15 +31,22 @@ class ui {
     device = null;
     dateSelected = new Date();
     dayData = dataReset
+    isLoading = true;
 
+    //Métodos del UI
     setContent = (selection, selectionText) => {
+        this.isLoading = true;
         if (this.selection !== selection) {
             this.selection = selection;
             this.selectionText = selectionText;
             this.content = null;
-            axios.get(`/api/user/${this.userId}/${selection}`)
+            axios.get(`/api/user/${this.userId}/${selection}`, this.config)
             .then((response) => { this.content = response.data.content })
-            .catch((error) => { alert(error.response.data.mensaje) })
+            .catch((error) => { 
+                alert(error.response.data.mensaje)
+                console.log(error.response.data)
+            })
+            .finally(() => { this.isLoading = false })
         }
     }
     setDevicemanager = () => {
@@ -46,13 +55,14 @@ class ui {
         this.updateContent("devices");
     }
     updateContent = (type) => {
-        axios.get(`/api/user/${this.userId}/${type}`)
+        axios.get(`/api/user/${this.userId}/${type}`, this.config)
         .then((response) => { this.content = response.data.content })
         .catch((error) => { alert(error.response.data.mensaje) })
 
-        axios.get(`/api/user/${this.userId}/options`)
+        axios.get(`/api/user/${this.userId}/options`, this.config)
         .then((response) => { this.options = response.data.content })
     }
+    //Métodos del dispositivo
     setDevice = (device) => {
         if(device !== this.device){
             this.device = device
@@ -61,10 +71,13 @@ class ui {
         }
     }
     submitDevice = (deviceData) => {
-        axios.post(`/api/user/${this.userId}/${deviceData.request}`, deviceData.jsonData)
+        axios.post(`/api/user/${this.userId}/${deviceData.request}`, deviceData.jsonData, this.config)
         .then((response) => { 
             this.status = response.status
-            if(this.status === 201) alert("Dispositivo correctamente agregado al sistema");
+            if(this.status === 201) {
+                alert("Dispositivo correctamente agregado al sistema")
+                this.updateContent("devices");
+            };
         })
         .catch((error) => { alert(error.response.data.mensaje) })
         .finally(this.updateContent("devices"))
@@ -72,13 +85,14 @@ class ui {
     removeDevice = (device) => {
         const accept = window.confirm("¿Está seguro de querer borrar el dispositivo?")
         if(!accept) return
-        axios.delete(`/api/user/${this.userId}/${device.type}/${device.id}`)
+        axios.delete(`/api/user/${this.userId}/${device.type}/${device.id}`, this.config)
         .catch((error) => { alert(error.response.data.mensaje) })
         .finally(() => {
             this.updateContent("devices");
             alert("Dispositivo eliminado");
         })
     }
+    //Monitores
     setDay = (date) => {
         this.dateSelected = date;
         this.dayDataRequest(date);
@@ -88,7 +102,7 @@ class ui {
         let month = (date.getMonth() + 1).toString();
         let year = date.getFullYear().toString();
         let dateString = year + month + day;
-        axios.get(`/api/user/${this.userId}/${this.selection}/${this.device.id}/data/date/${dateString}`)
+        axios.get(`/api/user/${this.userId}/${this.selection}/${this.device.id}/data/date/${dateString}`, this.config)
         .then((response) => {
             if(response.data.data.length > 0) {
                 this.processDayData(response.data.data);
@@ -112,7 +126,7 @@ class ui {
                 t: null,
                 y: null
             };
-            newLabels.push(`${check(d.time.hour)}:${check(d.time.hour)}`);
+            newLabels.push(`${check(d.time.hour)}:${check(d.time.min)}`);
             newDatum.t = new Date(0, 0, 0, d.time.hour, d.time.min, 0, 0);
             newDatum.y = d.datum;
             newData.push(newDatum);
@@ -121,16 +135,53 @@ class ui {
         this.dayData.datasets[0].data = newData;
         this.emptyDate = false;
     }
+    //Switches
     changeSwitchState = (switchID) => {
-        console.log(switchID)
-        axios.put(`/api/user/${this.userId}/switches/${switchID}`)
+        this.isLoading = true;
+        axios.put(`/api/user/${this.userId}/switches/${switchID}`, null, this.config)
         .then((response) => { this.updateContent("switches") })
         .catch((error) => { alert(error.response.data.mensaje) })
         .finally(() => {
-            axios.get(`/api/user/${this.userId}/switches/${switchID}`)
+            axios.get(`/api/user/${this.userId}/switches/${switchID}`, this.config)
             .then((response) => {
-                this.device = response.data.device
+                this.device = response.data.device;
+                this.isLoading = false;
             })
+        })
+    }
+    //Autenticación
+    userRegister = (username, password) => {
+        axios.post('/api/user/register', {
+            user: username,
+            password: password
+        }).then((response) => {
+            alert("Usuario registrado")
+        }).catch((error) => {
+            alert("Error")
+            console.log(error.response)
+        })
+    }
+    userLogin = (username, password) => {
+        axios.post(`/auth`, {
+            username: username,
+            password: password
+        }).then((response) => {
+            const token = response.data.access_token;
+            this.token = token;
+            this.config.headers["Authorization"] = `JWT ${this.token}` 
+            axios.post(`/api/user/id`,{
+                user: username,
+                password: password
+            })
+            .then((response) => {
+                this.userId = response.data.id
+            })
+            .catch((error) => {
+                console.log(error.response)
+                alert("Error")
+            })
+        }).catch((error) => {
+            alert("Credenciales inválidos")
         })
     }
 }
@@ -141,6 +192,7 @@ var uiState = window.uiDebug = new ui()
 
 decorate(uiState, {
     userId: observable,
+    token: observable,
     selection: observable,
     selectionText: observable,
     managerSelection: observable,
@@ -152,6 +204,7 @@ decorate(uiState, {
     emptyDate: observable,
     status: observable,
     valor: observable,
+    isLoading: observable,
     setContent: action,
     updateData: action,
     setDeviceManager: action,

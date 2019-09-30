@@ -1,6 +1,7 @@
 from flask_restful import reqparse, Resource
 from server.models.switch import SwitchModel
 from server.models.user import UserModel
+from flask_jwt import jwt_required
 
 
 class SwitchSubmit(Resource):
@@ -14,6 +15,7 @@ class SwitchSubmit(Resource):
         help="Todo interruptor necesita un nombre"
     )
 
+    @jwt_required()
     def post(self, id_user):
         """Solicitud para guardar un Switch nuevo en la base de datos"""
 

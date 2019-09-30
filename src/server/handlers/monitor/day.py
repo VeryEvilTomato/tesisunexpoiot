@@ -2,10 +2,12 @@ from datetime import datetime
 from flask_restful import Resource
 from server.models.monitor import MonitorModel
 from server.models.user import UserModel
+from flask_jwt import jwt_required
 
 class MonitorDay(Resource):
     """Clase para solicitar todos los datos de un día"""
 
+    @jwt_required()
     def get(self,id_monitor,id_user,date):
         """Solicitud de datos de un día entero de un monitor en la base de datos"""
 

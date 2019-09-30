@@ -3,7 +3,7 @@ from flask_restful import Resource, reqparse
 from server.models.datum import MonitorDatumModel
 from server.models.monitor import MonitorModel
 from server.models.user import UserModel
-
+from flask_jwt import jwt_required
 
 class MonitorDatum(Resource):
     """Clase para gestión de cada dato"""
@@ -16,6 +16,7 @@ class MonitorDatum(Resource):
         help="El campo 'dato' no puede dejarse en blanco"
     )
 
+    @jwt_required()
     def post(self,id_monitor,id_user):
         """Solicitud para guardar un dato nuevo de un monitor en la base de datos"""
 

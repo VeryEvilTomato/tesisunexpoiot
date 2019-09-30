@@ -24,7 +24,7 @@ const AddDevice = observer(class AddDevice extends Component {
     }
     submitHandler = (e) => {
         e.preventDefault()
-        if(this.state.name !== "" || this.state.variable !== "" || this.state.type !== "") {
+        if(this.state.name.length > 0 || this.state.variable !== "" || this.state.type !== "") {
             this.props.uiState.submitDevice({
                 "jsonData": {
                     "name": this.state.name,

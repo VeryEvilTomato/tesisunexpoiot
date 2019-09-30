@@ -1,11 +1,12 @@
 from flask_restful import reqparse, Resource
 from server.models.switch import SwitchModel
 from server.models.user import UserModel
-
+from flask_jwt import jwt_required
 
 class SwitchDelete(Resource):
     """Clase para borrar un interruptor al sistema"""
 
+    @jwt_required()
     def delete(self, id_user, id_switch):
         """Solicitud para borrar un interruptor de la base de datos"""
 

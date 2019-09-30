@@ -1,0 +1,21 @@
+.Auth {
+    background: linear-gradient(#E7717D, #f1bc7f);
+    display: flex;
+    width: 100vw;
+    min-height: 95vh;
+    height: 100%;
+    justify-content: center;
+    padding: 10px;
+    color: white;
+}
+
+.authMenu, .loginForm, .login {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.authMenu > *, .loginForm > *, .login > * {
+    margin: 10px;
+    min-width: 200px;
+    max-width: 90%;
+}

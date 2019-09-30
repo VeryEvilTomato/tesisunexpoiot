@@ -35,7 +35,32 @@ const Monitor = observer( class Monitor extends Component {
 			},
 			options: {
 				responsive: true,
-				maintainAspectRatio: 1
+				maintainAspectRatio: 1,
+				showLine: false,
+				elements: {
+					line: {
+						tension: 0
+					},
+					// scales: {
+					// 	xAxes: [{
+					// 		type: 'time',
+					// 		distribution: 'linear',
+					// 		time: {
+					// 			parser: 'HH:mm',
+					// 			tooltipFormat: 'HH:mm',
+					// 			unit: 'minute',
+					// 			stepSize: 10,
+					// 			displayFormats: {
+					// 			  'minute': 'HH:mm',
+					// 			  'hour': 'HH:mm'
+					// 			}
+					// 		  }
+					// 	}]
+					// }
+				},
+				animation: { duration: 0 },
+				hover: { animationDuration: 0 },
+				responsiveAnimationDuration: 0 
 			}
 		}
 	}

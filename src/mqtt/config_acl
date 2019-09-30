@@ -1,0 +1,6 @@
+user server
+topic read +/monitors/+
+topic write +/switches/+
+
+pattern write %c/monitors/#
+pattern read %c/switches/#
