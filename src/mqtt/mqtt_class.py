@@ -14,12 +14,12 @@ class MqttClass:
 
         @self.mqtt.on_connect()
         def handle_connect(client, userdata, flags, rc):
-            self.mqtt.subscribe(topic='+/monitors/+', qos=1)
+            self.mqtt.subscribe(topic='+/user/+/monitors/+', qos=1)
 
         @self.mqtt.on_message()
         def handle_message(client, userdata, message):
             try:
-                messageArr = message.topic.split('/', 3)
+                messageArr = message.topic.split('/', 4)
             except:
                 traceback.print_exc()
                 print("Error en el tópico del mensaje")
@@ -28,17 +28,18 @@ class MqttClass:
             # messageArr[2] - Nombre del monitor
 
             with app.app_context():
-                user = UserModel.find_by_user(messageArr[0])
+                user = UserModel.find_by_user(messageArr[2])
                 if not user:
                     print("No se encuentra el usuario")
                     return
-                monitor = MonitorModel.find_by_name_id( messageArr[2], user.id)
+                monitor = MonitorModel.find_by_name_id( messageArr[4], user.id)
                 if not monitor:
-                    print("No existe el monitor", messageArr[2])
+                    print("No existe el monitor", messageArr[4])
 
                 datum = MonitorDatumModel(monitor.id, message.payload.decode())
                 try:
                     datum.save_db()
+                    print("Dato insertado para", messageArr[2])
                 except:
                     print("Error insertando en la base de datos")
 

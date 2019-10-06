@@ -7,7 +7,6 @@ const Auth = observer(class Auth extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            type: null,
             username: "",
             password: ""
         }
@@ -22,7 +21,7 @@ const Auth = observer(class Auth extends Component {
         e.preventDefault()
         this.props.uiState
         .userRegister(this.state.username, this.state.password)
-        this.setState({ username:"", password:"", type: null})
+        this.setState({ username:"", password:""})
     }
     usernameHandler = (e) => {
         e.preventDefault();
@@ -49,8 +48,9 @@ const Auth = observer(class Auth extends Component {
         else return false
     }
     switchType = (type) => {
-        if (type !== null) {
-            switch(type) {
+        let { logState } = this.props.uiState 
+        if (logState !== null) {
+            switch(logState) {
                 case "login":
                     return <div className="login">
                         <form
@@ -77,7 +77,8 @@ const Auth = observer(class Auth extends Component {
                             />
                         </form>
                         <button onClick={() => {
-                            this.setState({type: null, username:"", password:"" })
+                            this.setState({username:"", password:"" })
+                            this.props.uiState.logState = null
                         }}>Regresar</button>
                     </div>
                 case "register":
@@ -106,7 +107,8 @@ const Auth = observer(class Auth extends Component {
                             />
                         </form>
                         <button onClick={() => {
-                            this.setState({type: null, username:"", password:"" })
+                            this.setState({username:"", password:"" })
+                            this.props.uiState.logState = null
                         }}>Regresar</button>
                     </div>
                 default:
@@ -118,10 +120,10 @@ const Auth = observer(class Auth extends Component {
     render() {
         return (
             <div className="Auth">
-                {this.state.type == null ? 
+                { this.props.uiState.logState == null ? 
                     <div className="authMenu">
-                        <button onClick={() => this.setState({type: "login"})}>Iniciar sesión</button>
-                        <button onClick={() => this.setState({type: "register"})}>Registrarse</button>
+                        <button onClick={() => {this.props.uiState.logState = "login"}}>Iniciar sesión</button>
+                        <button onClick={() => {this.props.uiState.logState = "register"}}>Registrarse</button>
                     </div>
                     :
                     <div className="type">

@@ -1,6 +1,6 @@
 user server
-topic read +/monitors/+
+topic read +/user/+/monitors/+
 topic write +/switches/+
 
-pattern write %c/monitors/#
-pattern read %c/switches/#
+pattern write %c/user/+/monitors/+
+pattern read +/switches/+

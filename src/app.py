@@ -11,7 +11,7 @@ from server.handlers.webapp import index
 #Configuración del servidor
 app = Flask(__name__, static_folder='client/build/static', template_folder='client/build')
 app.config['DEBUG'] = False
-app.config['ENV'] = 'development'
+app.config['ENV'] = 'production'
 app.secret_key = "unexpoIoTtesis"
 
 app.config['MQTT_USERNAME'] = 'server'

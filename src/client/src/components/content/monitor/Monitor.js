@@ -41,22 +41,6 @@ const Monitor = observer( class Monitor extends Component {
 					line: {
 						tension: 0
 					},
-					// scales: {
-					// 	xAxes: [{
-					// 		type: 'time',
-					// 		distribution: 'linear',
-					// 		time: {
-					// 			parser: 'HH:mm',
-					// 			tooltipFormat: 'HH:mm',
-					// 			unit: 'minute',
-					// 			stepSize: 10,
-					// 			displayFormats: {
-					// 			  'minute': 'HH:mm',
-					// 			  'hour': 'HH:mm'
-					// 			}
-					// 		  }
-					// 	}]
-					// }
 				},
 				animation: { duration: 0 },
 				hover: { animationDuration: 0 },
@@ -69,7 +53,7 @@ const Monitor = observer( class Monitor extends Component {
     	Array.from(datePickers).forEach((el => el.childNodes[0].setAttribute("readOnly", true)))
 		this.chartUpdate = setInterval(() => {
 			this.setState({data: this.props.uiState.dayData});
-			console.log("Update")
+			this.dateHandler(this.props.uiState.dateSelected)
 		}, 1000)
 	}
 	componentWillUnmount(){
@@ -95,11 +79,7 @@ const Monitor = observer( class Monitor extends Component {
 					{this.props.uiState.emptyDate ?
 						<p>No existen datos registrados para la fecha suministrada</p>
 						:
-						<button
-							onClick={ () => {
-								this.dateHandler(this.props.uiState.dateSelected)
-							}}
-						>Refrescar datos</button>
+						""
 					}
                 </div>
                 <br/>

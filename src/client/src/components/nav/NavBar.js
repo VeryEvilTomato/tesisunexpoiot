@@ -26,7 +26,7 @@ const NavBar = observer(class NavBar extends Component {
                         }
                     }
                 >Lista de interruptores</button>
-                <button onClick={() => console.log("Abandonar sesión")}
+                <button onClick={() => this.props.uiState.cleanSession()}
                 >Abandonar sesión</button>
             </div>
         )

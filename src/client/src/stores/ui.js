@@ -16,9 +16,10 @@ const dataReset = {
 
 class ui {
     // - User data -
-    userId = "1";
+    userId = null;
     token = null;
     config = { headers:{ Authorization: ""} }
+    logState = null;
     // - UI data -
     selection = null;
     selectionText = null;
@@ -180,9 +181,30 @@ class ui {
                 console.log(error.response)
                 alert("Error")
             })
+            this.logState = null
         }).catch((error) => {
             alert("Credenciales inválidos")
         })
+    }
+    cleanSession = () => {
+        // - User data -
+        this.userId = null;
+        this.token = null;
+        this.config = { headers:{ Authorization: ""} }
+        this.logState = null;
+        // - UI data -
+        this.selection = null;
+        this.selectionText = null;
+        this.emptyDate = false;
+        this.status = null;
+        // - Device data -
+        this.managerSelection = null;
+        this.options = null;
+        this.content = null;
+        this.device = null;
+        this.dateSelected = new Date();
+        this.dayData = dataReset
+        this.isLoading = true;
     }
 }
 
@@ -193,6 +215,7 @@ var uiState = window.uiDebug = new ui()
 decorate(uiState, {
     userId: observable,
     token: observable,
+    logState: observable,
     selection: observable,
     selectionText: observable,
     managerSelection: observable,
