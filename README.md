@@ -1,4 +1,4 @@
-# Casa domótica / Aplicación IoT
+# Tomate IoT / Aplicación para monitorear y gestionar dispositivos IoT
 
 Autor:
 - Orlando Guevara
