@@ -23,12 +23,12 @@ npm run build
 
 ## Arquitectura del sistema
 ```
-  (api) ---- (webapp) ---- (user)
-  Python      React
-    |
-    |
-(database)
-  SQLite
+(dispositivos)---(broker)-----(api) ---- (webapp) ---- (usuario)
+                Mosquitto    Python       React
+                    |
+                    |
+                (database)
+                 SQLite3
 ```
 
 
